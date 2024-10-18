@@ -3,13 +3,13 @@
 # 環境変数の初期設定
 
 # 初期値peeというユーザを作成、初期値powというPWを設定
-export ${__SOCL_USER:="pee"}
-export ${__SOCL_PASS:="pow"}
+${__SOCL_USER:="pee"}
+${__SOCL_PASS:="pow"}
 useradd -mN /bin/bash -s ${__SOCL_USER}
 echo "${__SOCL_USER}:${__SOCL_PASS}" | chpasswd
 
 # ユーザーをグループに追加(初期値は同名)
-export ${__SOCL_GROUP:=${__SOCL_USER}}
+${__SOCL_GROUP:=${__SOCL_USER}}
 groupadd -f ${__SOCL_GROUP}
 usermod  -g ${__SOCL_GROUP} ${__SOCL_USER}
 

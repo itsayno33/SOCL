@@ -21,5 +21,6 @@ else
 fi
 
 # 残りを本命の引数としてスクリプトに渡す
-sudo -u "${__SoCL_USER}" -E /source /__InitScripts/runScripts.sh ONCE "$TARG[*]"
+echo "sudo -u \"${$__SOCL_USER}\" -E /source /__InitScripts/runScripts.sh ONCE \"${TARG[*]}\""
+sudo -u "${$__SOCL_USER}" -E /source /__InitScripts/runScripts.sh ONCE "${TARG[*]}"
 exit $?
