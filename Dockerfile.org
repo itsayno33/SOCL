@@ -19,4 +19,4 @@ USER "$__SOCL_USER"
 WORKDIR "/home/$__SOCL_USER/"
 
 # テスト用エントリーポイント(CMD)
-CMD ["/bin/bash","-i"]
+CMD ["/usr/bin/bash","-i"]

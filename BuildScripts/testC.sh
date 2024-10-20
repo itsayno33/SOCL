@@ -1,2 +1,2 @@
-#!/bin/bash
-echo "Teat C!!"
+#!/usr/bin/bash
+echo "Test C!!"

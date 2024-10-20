@@ -1,4 +1,4 @@
-# /bin/bash
+#!/usr/bin/bash
 
 if [$# -lt 5]; then
 # docker container run イメージ名 のみなら本命引数は空集合とする
@@ -21,6 +21,6 @@ else
 fi
 
 # 残りを本命の引数としてスクリプトに渡す
-echo "sudo -u \"${$__SOCL_USER}\" -E /source /__InitScripts/runScripts.sh ONCE \"${TARG[*]}\""
-sudo -u "${$__SOCL_USER}" -E /source /__InitScripts/runScripts.sh ONCE "${TARG[*]}"
+echo "sudo -Eu \"${$__SOCL_USER}\" /usr/bin/bash source /__InitScripts/runScripts.sh ONCE \"${TARG[*]}\""
+sudo -Eu "${$__SOCL_USER}" /usr/bin/bash source /__InitScripts/runScripts.sh ONCE "${TARG[*]}"
 exit $?

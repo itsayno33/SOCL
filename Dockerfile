@@ -1,3 +1,3 @@
 FROM unubtu:24.04
 
-CMD ["/bin/bash","-i"]
+CMD ["/usr/bin/bash","-i"]

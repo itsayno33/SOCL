@@ -1,2 +1,2 @@
-#!/bin/bash
-echo "Teat A"
+#!/usr/bin/bash
+echo "Test A"

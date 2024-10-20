@@ -1,12 +1,16 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # 環境変数の初期設定
 
 # 初期値peeというユーザを作成、初期値powというPWを設定
 ${__SOCL_USER:="pee"}
-${__SOCL_PASS:="pow"}
+${__SOCL_PASS:=""}
 useradd -mN /bin/bash -s ${__SOCL_USER}
-echo "${__SOCL_USER}:${__SOCL_PASS}" | chpasswd
+
+# パスワードの指定があれば設定する。初期値は『無し』
+if [$__SOCL_PASS != ""]; then
+    echo "${__SOCL_USER}:${__SOCL_PASS}" | chpasswd
+fi
 
 # ユーザーをグループに追加(初期値は同名)
 ${__SOCL_GROUP:=${__SOCL_USER}}

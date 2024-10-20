@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # 引数モードのスペルを大文字化して保存
 run_mode=${2^^}
@@ -16,7 +16,7 @@ fi
 if [$run_mode != "ALL" ] && [$run_mode != "ONCE"]; then exit 1 fi
 
 # カレントフォルダ内のシェルスクリプトに上記の引数を付けて実行
-for scripts in `ls *.sh`
+for scripts in `ls -AB *.sh`
 do
     pushd ~ > /dev/null
         # 拡張子が「.sh」でファイル名として正しくフォルダ内に存在しており
