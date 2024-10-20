@@ -8,8 +8,8 @@ if [$# -lt 3]; then
     RUNARG=()
 else
 # source runScript.sh モード まで読み飛ばして引数化
-    RUNARG=("$@")
-    RUNARG=("${RUNAGE[@]:3}")
+    RUNARG="$@[@]"
+    RUNARG=("${RUNAGE[*]:3}")
 fi
 
 # 引数モードが規定外なら異常終了
