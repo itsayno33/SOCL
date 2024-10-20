@@ -3,7 +3,10 @@
 # 引数モードのスペルを大文字化して保存
 run_mode=${2^^}
 
-if [$# -lt 3]; then
+if [$# -lt 2]; then
+# コマンドとスクリプト名で2以上になるはず
+    exit 1
+else if [$# -lt 3]; then
 # source runScript.sh モード だけなら引数なし
     RUNARG=()
 else

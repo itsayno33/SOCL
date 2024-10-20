@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 if [$# -lt 5]; then
-# docker container run イメージ名 のみなら本命引数は空集合とする
+# docker container run サービス名 のみなら本命引数は空集合とする
     TARG=()
 else
 # 本命引数(and/or dockerのオプション)が残っているので真面目に処理する
@@ -16,11 +16,11 @@ else
         TARG=${TARG[@]:1}
     done
 
-# 次の単語はイメージ名なのでスキップ
+# 次の単語はサービス名なのでスキップ
     TARG=${TARG[@]:1}
 fi
 
 # 残りを本命の引数としてスクリプトに渡す
-echo "sudo -Eu \"${$__SOCL_USER:=pee}\" /usr/bin/bash source /__InitScripts/runScripts.sh ONCE \"${TARG[*]}\""
-sudo -Eu "${$__SOCL_USER:=pee}" /usr/bin/bash source /__InitScripts/runScripts.sh ONCE "${TARG[*]}"
+echo "sudo -Eu \"${$__SOCL_USER:=pee}\" /usr/bin/bash cd \"${__SOCL_EntryScript}\" && source /__InitScripts/runScripts.sh ONCE \"${TARG[@]}\""
+sudo -Eu "${$__SOCL_USER:=pee}" /usr/bin/bash cd /EntryScript && source /__InitScripts/runScripts.sh ONCE "${TARG[@]}"
 exit $?

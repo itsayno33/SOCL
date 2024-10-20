@@ -1,11 +1,13 @@
 services:
     socl:
+#        from: ubuntu:24.04
         build: .
         container_name: "socl"
         privileged: true
-environment:
-        __BUILD_SCRIPTS="BuildScripts"
-        __BUILD_DATA="BuildData"
-        __SOCL_USER="foo"
-        __SOCL_PASS="baa"
-        __SOCL_GROUP="wuu"
+        environment:
+            - __SOCL_BUILD_SCRIPTS="BuildScripts"
+            - __SOCL_ENTRY_SCRIPT="ntryScript"
+            - __SOCL_OTHER_DATA="OtherData"
+            - __SOCL_USER="foo"
+            - __SOCL_PASS=""
+            - __SOCL_GROUP="bar"

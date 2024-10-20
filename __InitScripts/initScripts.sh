@@ -28,3 +28,8 @@ chgown -R "${__SOCL_USER}:${__SOCL_GROUP}" /BuildScripts
 # その他いろいろ用のフォルダの作成
 mkdir  -pm 777 /BuildData
 chgown -R "${__SOCL_USER}:${__SOCL_GROUP}" /BuildData
+
+# 実行時に必要なスクリプトを置くフォルダの作成
+mkdir  -p /EntryScript
+chgmod -R a=+x /EntryScript
+chgown -R "${__SOCL_USER}:${__SOCL_GROUP}" /EntryScript
