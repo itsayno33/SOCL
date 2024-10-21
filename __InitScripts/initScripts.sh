@@ -17,7 +17,7 @@ if [ ${#__SOCL_PASS} -lt 8 ]; then
 fi
 
 if [ "${__SOCL_PASS}" != "" ]; then
-    echo -e "${__SOCL_USER}:n${__SOCL_PASS}" | chpasswd
+    echo -e "${__SOCL_USER}:${__SOCL_PASS}" | chpasswd
 fi
 
 # ユーザーをグループに追加(初期値は同名)
