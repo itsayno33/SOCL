@@ -5,9 +5,9 @@ services:
         container_name: "socl"
         privileged: true
         environment:
-            - __SOCL_BUILD_SCRIPTS="BuildScripts"
-            - __SOCL_ENTRY_SCRIPT="ntryScript"
-            - __SOCL_OTHER_DATA="OtherData"
-            - __SOCL_USER="foo"
-            - __SOCL_PASS=""
-            - __SOCL_GROUP="bar"
+            - __SOCL_BUILD_SCRIPTS=BuildScripts
+            - __SOCL_ENTRY_SCRIPT=EntryScript
+            - __SOCL_OTHER_DATA=OtherData
+            - __SOCL_USER=foo
+            - __SOCL_PASS=
+            - __SOCL_GROUP=users

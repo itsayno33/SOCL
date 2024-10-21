@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-if [$# -lt 5]; then
+if [ $# -lt 5 ]; then
 # docker container run サービス名 のみなら本命引数は空集合とする
     TARG=()
 else
@@ -11,7 +11,7 @@ else
     TARG=${TARG[@]:3}
 
 # 先頭が「-」で始まる文字列はdockerのオプションなのでスキップ
-    while ["(${TARG[0]:0:1})" = "(-)"];
+    while [ "(${TARG[0]:0:1})" = "(-)" ];
     do
         TARG=${TARG[@]:1}
     done
