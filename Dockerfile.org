@@ -1,17 +1,22 @@
 FROM ubuntu:24.04
 
-# ユーザー関係の環境変数の初期化、ユーザーの作成、各種ディレクトリの作成
-RUN chgmod a=+x && source /InitScript.sh
+# 初期化時に必要なスクリプトの転送
+COPY --chown=root:root InitScripts /__InitScripts
+
+# 初期システム関係のapt install、各種ディレクトリの作成
+RUN cd /__InitScripts && chgmod -R u=+x *.sh && source /__InitScripts/initScript_1.sh
 
 # ビルド時や実行時に必要なスクリプトの転送
 # 転送元は環境変数から取得
-COPY --chown=root:root InitScripts /__InitScripts
 COPY --chown=$__SOCL_USER:$__SOCL_GROUP $__SOCL_BUILD_SCRIPTS /BuildScripts
 COPY --chown=$__SOCL_USER:$__SOCL_GROUP $__SOCL_ENTRY_SCRIPT  /EntryScript
 COPY --chown=$__SOCL_USER:$__SOCL_GROUP $__SOCL_OTHER_DATA /OtherData
 
+# ユーザー関係の環境変数の初期化、ユーザーの作成
+RUN cd /__InitScripts && chgmod -R u=+x *.sh && source /__InitScripts/initScript_2.sh
+
 # BuildScriptasフォルダ内のシェル・スクリプトをroot権限で実行(名前順)
-RUN cd /BuildScripts && source /__InitScripts/runScripts.sh ALL
+# RUN cd /BuildScripts && source /__InitScripts/runScripts.sh ALL
 
 # コンテナを指定されたユーザで実行（実行時はrootユーザ以外で実行したい）
 USER "$__SOCL_USER"
