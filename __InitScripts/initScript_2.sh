@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 # 環境変数の初期設定
 
-# 初期値peeというユーザーを作成、初期値powというPWを設定
-export __SOCL_USER=${__SOCL_USER:="pee"}
+# 初期値rootというユーザーを作成する
+export __SOCL_USER=${__SOCL_USER:="root"}
 useradd -mN ${__SOCL_USER} -s /bin/bash
 
 # パスワードの指定があれば設定する。初期値は『無し』

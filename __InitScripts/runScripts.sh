@@ -4,7 +4,7 @@
 run_mode=${2^^}
 
 if [$# -lt 2]; then
-# コマンドとスクリプト名で2以上になるはず
+# コマンドとスクリプト名とモードで3以上になるはず
     exit 1
 else if [$# -lt 3]; then
 # source runScript.sh モード だけなら引数なし
