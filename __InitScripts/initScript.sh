@@ -30,22 +30,11 @@ usermod  -g ${__SOCL_GROUP} ${__SOCL_USER} &>/dev/null
 # sudoでroot権限のコマンドを実行できるように指定
 gpasswd -a ${__SOCL_USER} sudo
 
-
 # 初期化時に必要なスクリプトを置くフォルダの作成
-mkdir  -pm 755 /InitScripts
-chmod -R a+x   /InitScripts
-chown -R root:root /InitScripts
+# mkdir  -pm 755 /InitScripts
 
 # ビルド時に必要なスクリプトを置くフォルダの作成
-mkdir  -pm 755 /BuildScripts
-chmod -R a+x   /BuildScripts
-chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /BuildScripts
+# mkdir  -pm 755 /BuildScripts
 
 # 実行時に必要なスクリプトを置くフォルダの作成
-mkdir -pm 755 /EntryScript
-chmod -R a+x  /EntryScript
-chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /EntryScript
-
-# その他いろいろ用のフォルダの作成
-mkdir -pm 777 /OtherData
-chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /OtherData
+# mkdir -pm 755 /EntryScript

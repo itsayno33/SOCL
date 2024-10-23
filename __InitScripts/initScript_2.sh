@@ -1,27 +1,19 @@
 #!/usr/bin/bash
-# 環境変数の初期設定
 
-# 初期値rootというユーザーを作成する
-export __SOCL_USER=${__SOCL_USER:="root"}
-useradd -mN ${__SOCL_USER} -s /bin/bash
+# 初期化１で実行したinitScript_1.shをルートから削除する
+#rm --force /initScript_1.sh
 
-# パスワードの指定があれば設定する。初期値は『無し』
-export __SOCL_PASS=${__SOCL_PASS:=""}
+# 初期化時に必要なスクリプトを置くフォルダへの実行権付与とオーナー変更
+chmod -R a+x   /InitScripts
+chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /InitScripts
 
-# パスワードが8文字未満だエラーなので『無し』扱いにする
-if [ ${#__SOCL_PASS} -lt 8 ]; then
-    __SOCL_PASS=""
-fi
+# ビルド時に必要なスクリプトを置くフォルダへの実行権付与とオーナー変更
+chmod -R a+x   /BuildScripts
+chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /BuildScripts
 
-# 指定ユーザーのパスワード変更
-if [ "${__SOCL_PASS}" != "" ]; then
-    echo -e "${__SOCL_USER}:${__SOCL_PASS}" | chpasswd
-fi
+# 実行時に必要なスクリプトを置くフォルダへの実行権付与とオーナー変更
+chmod -R a+x  /EntryScript
+chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /EntryScript
 
-# ユーザーをグループに追加(初期値は同名)
-export __SOCL_GROUP=${__SOCL_GROUP:=${__SOCL_USER}}
-groupadd -f ${__SOCL_GROUP}
-usermod  -g ${__SOCL_GROUP} ${__SOCL_USER} &>/dev/null
-
-# sudoでroot権限のコマンドを実行できるように指定
-gpasswd -a ${__SOCL_USER} sudo
+# その他いろいろ用のフォルダのオーナー変更
+chown -R "${__SOCL_USER}:${__SOCL_GROUP}" /OtherData

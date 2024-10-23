@@ -1,57 +1,27 @@
 #!/usr/bin/bash
 
-if [ $# -lt 5 ]; then
+if [ $# -lt 1 ]; then
 # docker container run サービス名 のみなら本命引数は空集合とする
     TARG=()
 else
-# 本命引数(and/or dockerのオプション)が残っているので真面目に処理する
-    TARG=${@[@]}
-
-# docker container run の単語3つをスキップ
-    TARG=${TARG[@]:3}
-
-# 先頭が「-」で始まる文字列はdockerのオプションなのでスキップ
-    while [ "(${TARG[0]:0:1})" = "(-)" ];
-    do
-        TARG=${TARG[@]:1}
+# 引数が変更される前に複製
+    for arg; do
+        TARG=( "${TARG[@]}" $arg )
     done
-
-# 次の単語はサービス名なのでスキップ
-    TARG=${TARG[@]:1}
 fi
 
-# BuildScriptsの実行(フォルダ内のシェルスクリプトを名前順ですべて実行。引数は使用しない)
-cd /BuildScripts
-for scripts in `ls -AB *.sh`
-do
-    pushd ~ > /dev/null
-        # 拡張子が「.sh」でファイル名として正しくフォルダ内に存在しており
-        # 実行権があってファイルサイズが0で無ければ実行
-        if [ -f $scripts ] && [ -e $scripts ] && [ -x $scripts ] && [ -s $scripts ]; then
-            echo "sudo -E -u ${__SOCL_USER} ./source ${scripts}"
-            source "sudo -E -u ${__SOCL_USER} ./${scripts}"
-            if   [ $? -ne 0 ]; then exit $? fi #スクリプトが異常終了していたら処理打ち切り
-            continue
-        fi
-    popd > /dev/null
-done
-
 # EntrydScriptsの実行(フォルダ内のシェルスクリプトの打ち、名前順で一番遅いものを実行。引数も使用する)
-cd /EntryScript
-for scripts in `ls -AB *.sh`
+scripts_dir=/EntryScript
+pushd ~ > /dev/null
+for scripts in `ls -Ar -- ${scripts_dir}/*.sh`;
 do
-    pushd ~ > /dev/null
         # 拡張子が「.sh」でファイル名として正しくフォルダ内に存在しており
         # 実行権があってファイルサイズが0で無ければ実行
         if [ -f $scripts ] && [ -e $scripts ] && [ -x $scripts ] && [ -s $scripts ]; then
-            echo "sudo -E -u ${__SOCL_USER} source ./${scripts} ${TARG[@]}"
-            sudo -E -u ${__SOCL_USER} source "./${scripts} ${TARG[@]}"
+            echo "sudo -E -u ${__SOCL_USER} source ${scripts_dir}/${scripts} ${TARG[@]}"
+            sudo -E -u ${__SOCL_USER} source "${scripts_dir}/${scripts} ${TARG[@]}"
             if   [ $? -ne 0 ]; then exit $? fi #スクリプトが異常終了していたら処理打ち切り
             break
         fi
-    popd > /dev/null
 done
-
-
-
-
+popd > /dev/null
