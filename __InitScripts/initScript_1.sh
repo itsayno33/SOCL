@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # 必要なパッケージの取得
 #apt-get update

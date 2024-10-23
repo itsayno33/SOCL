@@ -16,10 +16,11 @@ COPY $__SOCL_BUILD_SCRIPTS /BuildScripts
 COPY $__SOCL_ENTRY_SCRIPT  /EntryScript
 COPY $__SOCL_OTHER_DATA    /OtherData
 
-#SHELL ["/usr/bin/bash", "-c", "source"]
-#RUN ["initScript_1.sh"]
+SHELL ["/usr/bin/bash", "-c", "source"]
+#RUN ["/__InitScripts/initScript_1.sh"]
+#RUN source /__InitScripts/initScript_1.sh
 
-#ONBUILD RUN ["/__InitScriptsinitScript_2.sh"]
+#ONBUILD RUN ["/__InitScripts/initScript_2.sh"]
 #ONBUILD RUN ["/__InitScripts/BuildScript.sh"]
 
 #ENTRYPOINT ["/__InitScripts/socl.sh"]
