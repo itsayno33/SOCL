@@ -1,5 +1,3 @@
 #!/usr/bin/bash
 
-source /__initScripts/echoTest.sh
-
-
+source /__InitDir/echoTest.sh

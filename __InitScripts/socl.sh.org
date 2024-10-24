@@ -11,7 +11,7 @@ else
 fi
 
 # EntrydScriptsの実行(フォルダ内のシェルスクリプトの打ち、名前順で一番遅いものを実行。引数も使用する)
-scripts_dir=/EntryScript
+scripts_dir=/EntryDir
 pushd ~ > /dev/null
 for scripts in `ls -Ar -- ${scripts_dir}/*.sh`;
 do

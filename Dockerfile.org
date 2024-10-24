@@ -1,34 +1,35 @@
 FROM ubuntu:24.04
 
-ARG __SOCL_BUILD_SCRIPTS \
-    __SOCL_ENTRY_SCRIPT \
-    __SOCL_OTHER_DATA \
-    __SOCL_USER \
-    __SOCL_PASS \
-    __SOCL_GROUP
+#ARG __SOCL_BUILD_DIR \
+#    __SOCL_ENTRY_DIR \
+#    __SOCL_OTHER_DIR \
+#    __SOCL_USER \
+#    __SOCL_PASS \
+#    __SOCL_GROUP
+
+#ENV __SOCL_BUILD_DIR=${__SOCL_BUILD_DIR:-BuildDir} \
+#    __SOCL_ENTRY_DIR=${__SOCL_ENTRY_DIR:-EntryDir} \
+#    __SOCL_OTHER_DIR=${__SOCL_OTHER_SIR:-OtherDir} \
+#    __SOCL_USER=${__SOCL_USER:-pee} \
+#    __SOCL_PASS=${__SOCL_PASS} \
+#    __SOCL_GROUP=${__SOCL_GROUP:-$__SOCL_USER}
 
 # 初期化時に必要なスクリプトの転送
-#COPY --chown=root:root __InitScripts/initScript_1.sh /initScript_1.sh
-# 初期システム関係のapt install、各種ディレクトリの作成
-#RUN chgmod -R u+x /__InitScripts/initScript_1.sh && source /initScript_1.sh
+COPY ./__InitScripts /__InitDir
 
 # ビルド時や実行時に必要なスクリプトの転送
 # 転送元は環境変数から取得
-COPY --chown=$__SOCL_USER:$__SOCL_GROUP $__SOCL_BUILD_SCRIPTS /BuildScripts
-COPY --chown=$__SOCL_USER:$__SOCL_GROUP $__SOCL_ENTRY_SCRIPT  /EntryScript
-COPY --chown=$__SOCL_USER:$__SOCL_GROUP $__SOCL_OTHER_DATA /OtherData
+#COPY ./$__SOCL_BUILD_DIR /BuildDir
+#COPY ./$__SOCL_ENTRY_DIR /EntryDir
+#COPY ./$__SOCL_OTHER_DIR /OtherDir
 
-# ユーザー関係の環境変数の初期化、ユーザーの作成
-RUN cd /__InitScripts && chgmod -R u+x *.sh && source /__InitScripts/initScript.sh
+SHELL ["/usr/bin/bash", "-c", "source"]
+RUN ["/__InitDirs/initScript_1.sh"]
+#RUN source /__InitDir/initScript_1.sh
 
-# BuildScriptasフォルダ内のシェル・スクリプトをroot権限で実行(名前順)
-# RUN cd /BuildScripts && source /__InitScripts/runScripts.sh ALL
+#ONBUILD RUN ["/__InitDir/initScript_2.sh"]
+#ONBUILD RUN ["/__InitDir/BuildScript.sh"]
 
-# コンテナを指定されたユーザで実行（実行時はrootユーザ以外で実行したい）
-USER "$__SOCL_USER"
-
-# 実行時のワークディレクトリを設定
-WORKDIR "/home/$__SOCL_USER/"
-
-# テスト用エントリーポイント(CMD)
-CMD ["/usr/bin/bash","-i"]
+# テスト用エントリーポイント
+#ENTRYPOINT ["/__InitDir/socl.sh"]
+ENTRYPOINT ["/usr/bin/bash"]

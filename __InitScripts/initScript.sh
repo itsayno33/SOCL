@@ -31,10 +31,10 @@ usermod  -g ${__SOCL_GROUP} ${__SOCL_USER} &>/dev/null
 gpasswd -a ${__SOCL_USER} sudo
 
 # 初期化時に必要なスクリプトを置くフォルダの作成
-# mkdir  -pm 755 /InitScripts
+# mkdir  -pm 755 /__InitDir
 
 # ビルド時に必要なスクリプトを置くフォルダの作成
-# mkdir  -pm 755 /BuildScripts
+# mkdir  -pm 755 /BuildDir
 
 # 実行時に必要なスクリプトを置くフォルダの作成
-# mkdir -pm 755 /EntryScript
+# mkdir -pm 755 /EntryDir

@@ -11,6 +11,6 @@ else
 fi
 
 # TARGを本命の引数としてスクリプトに渡す
-echo "sudo -Eu \"${$__SOCL_USER:=pee}\" /usr/bin/bash cd \"${__SOCL_EntryScript}\" && source /__InitScripts/runScripts.sh ONCE \"${TARG[@]}\""
-sudo -Eu "${$__SOCL_USER:=pee}" /usr/bin/bash cd /EntryScript && source /__InitScripts/runScripts.sh ONCE "${TARG[@]}"
+echo "sudo -Eu \"${$__SOCL_USER:=pee}\" /usr/bin/bash cd \"${__SOCL_EntryScript}\" && source /__InitDir/runScripts.sh ONCE \"${TARG[@]}\""
+sudo -Eu "${$__SOCL_USER:=pee}" /usr/bin/bash cd /EntryScript && source /__InitDir/runScripts.sh ONCE "${TARG[@]}"
 exit $?
