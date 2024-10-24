@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-echo "Test C!!"
+echo "Test C!!" 1>&2

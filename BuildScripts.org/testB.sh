@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-echo "Test B!"
+echo "Test B!" 1>&2

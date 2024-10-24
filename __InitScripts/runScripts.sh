@@ -31,7 +31,7 @@ do
         if [ -f $scripts ] && [ -e $scripts ] && [ -x $scripts ] && [ -s $scripts ]; then
             echo "$scripts $RUNARG"
             source "./${scripts} $RUNARG"
-            if   [ $? -ne 0 ]; then exit $? #スクリプトが異常終了していたら処理打ち切り
+            if   [ $? -ne 0 ]; then exit $?; #スクリプトが異常終了していたら処理打ち切り
             elif [ $run_mode = "ALL"  ]; then continue
             elif [ $run_mode = "ONCE" ]; then break
             else exit 2 fi

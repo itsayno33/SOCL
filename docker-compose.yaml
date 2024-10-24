@@ -4,10 +4,14 @@ services:
         build: .
         container_name: "socl"
         privileged: true
+        volumes:
+            - __init_dir_tmp:/__InitDir/tmp
         environment:
-            - __SOCL_BUILD_DIR=BuildScripts
-            - __SOCL_ENTRY_DIR=EntryScript
-            - __SOCL_OTHER_DIR=OtherData
+            - __SOCL_BUILD_DIR=BuildDir
+            - __SOCL_ENTRY_DIR=EntryDir
+            - __SOCL_OTHER_DIR=OtherDir
             - __SOCL_USER=foo
             - __SOCL_PASS=
             - __SOCL_GROUP=users
+volumes:
+    __init_dir_tmp:
