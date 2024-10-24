@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # 初期値rootというユーザーを作成する
-export __SOCL_USER=${__SOCL_USER:-pee}
+export __SOCL_USER=${__SOCL_USER:-socl}
 useradd -mN "${__SOCL_USER}" -s /bin/bash
 
 # パスワードの指定があれば設定する。初期値は『無し』
@@ -18,12 +18,12 @@ if [ "${__SOCL_PASS}" != "" ]; then
 fi
 
 # ユーザーをグループに追加(初期値は同名)
-export __SOCL_GROUP=${__SOCL_GROUP:-${__SOCL_USER}}
+export __SOCL_GROUP=${__SOCL_GROUP:-users}
 groupadd -f ${__SOCL_GROUP}
 usermod  -aG "${__SOCL_GROUP}" ${__SOCL_USER} &>/dev/null
 
 # sudoでroot権限のコマンドを実行できるように指定
-gpasswd -a ${__SOCL_USER} sudo
+gpasswd -a ${__SOCL_USER} sudo &> /dev/null
 echo "${__SOCL_USER} ALL=(root) NOPASSWD: ALL" >> /etc/sudoers
 
 

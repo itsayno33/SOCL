@@ -1,5 +1,5 @@
-#FROM ubuntu:24.04
-FROM ubuntu-2404_udt-socl:latest
+FROM ubuntu:24.04
+#FROM ubuntu-2404_udt-udt20241023:latest
 
 # 初期化時に必要なスクリプトの転送
 COPY ./__InitScripts /__InitDir
@@ -9,18 +9,14 @@ COPY ./__InitScripts /__InitDir
 #COPY ./${__SOCL_BUILD_DIR} /BuildDir
 #COPY ./${__SOCL_ENTRY_DIR} /EntryDir
 #COPY ./${__SOCL_OTHER_DIR} /OtherDir
-COPY ./BuildScripts /BuildDir
 
 # スクリプトの実行方法設定
 SHELL ["/usr/bin/bash", "-c", "source"]
 
-# ユーザー作成・必要なディレクトリ作成・権限設定
+# 必要なディレクトリ作成・権限設定
 RUN ["/__InitDir/initScript_1.sh"]
 
-# 必要なフォルダの権限の再設定(子孫プログラムの権限変更に対応する)
-#RUN ["/__InitDir/initScript_2.sh"]
-#RUN ["/__InitDir/buildScripts.sh"]
-
-# テスト用エントリーポイント
+# エントリーポイント
 ENTRYPOINT ["/__InitDir/socl.sh"]
-#ENTRYPOINT ["/usr/bin/bash"]
+
+LABEL MAINTAINER="itsayno33@gmail.com" LICENCE="Apache Licence,Version 2.0" DISCRIPTION="SoCL (the Sdk fOr the Customized Linux)"
