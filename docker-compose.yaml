@@ -4,10 +4,3 @@ services:
         build: .
         container_name: "socl"
         privileged: true
-#        environment:
-#            - __SOCL_BUILD_DIR=BuildDir
-#            - __SOCL_ENTRY_DIR=EntryDir
-#            - __SOCL_OTHER_DIR=OtherDir
-#            - __SOCL_USER=pee
-#            - __SOCL_PASS=poo
-#            - __SOCL_GROUP=users

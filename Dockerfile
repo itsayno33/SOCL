@@ -1,7 +1,5 @@
 #FROM ubuntu:24.04
 FROM itsayno33/ubuntu_udt:2024-10-26
-#FROM ubuntu:24.04
-FROM itsayno33/ubuntu_udt:2024-10-26
 
 # 初期化時に必要なスクリプトの転送
 COPY ./__InitScripts /__InitDir
@@ -10,8 +8,6 @@ COPY ./__InitScripts /__InitDir
 #COPY ./my/build/scripts/path /BuildDir
 #COPY ./my/entry/point/path   /EntryDir
 #COPY ./other/data/path       /OtherDir
-COPY ./BuildScripts /BuildDir
-COPY ./EntryScript  /EntryDir
 
 # スクリプトの実行方法設定
 SHELL ["/usr/bin/bash", "-c", "source"]
