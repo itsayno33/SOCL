@@ -6,30 +6,29 @@ for arg; do
     TARG=( "${TARG[@]}" $arg )
 done
 
-# ユーザー・グループの作成。各種フォルダの(実行)権限・オーナーの初期化(ビルド後の初回実行時のみ)
-source /__InitDir/initScript_2.sh
+# 環境変数の初期化
+export __SOCL_USER=${__SOCL_USER:-socl} # ユーザー名の設定。初期値は『socl』
+export __SOCL_PASS=${__SOCL_PASS:-socl} # パスワードの指定があれば設定する。初期値は『socl』
+export __SOCL_GROUP=${__SOCL_GROUP:-users} # グループ名の設定。初期値はusers
 
-if [ ! -f /__InitDir/tmp/build_ok ]; then
-    # ビルド用スクリプトの実行(ビルド後の初回実行時のみ)
-    source /__InitDir/buildScripts.sh
-    if   [ $? -eq 0 ]; then touch /__InitDir/tmp/build_ok ;  fi #ビルドに成功していたらフラグを立てる
-fi
+# 環境変数で指定されたユーザーの作成
+source /__InitDir/createUser.sh
 
+# 環境変数で指定されたユーザーの作成
+source /__InitDir/createUser.sh
+
+# 各種フォルダの作成
+source /__InitDir/initDir.sh
+
+# 各種フォルダの(実行)権限・オーナーの初期化(ビルド後の初回実行時のみ)
+source /__InitDir/initDir.sh
+
+# ユーザー指定のroot用シェルスクリプトの実行(BuildDirに存在するもの)
+source /__InitDir/rootScripts.sh
 
 # EntryScriptsの実行(フォルダ内のシェルスクリプトを名前順で検索して最後のスクリプトだけを実行。引数も使用する)
-scripts_dir=/EntryDir
-
-for scripts in `ls -Ar -- ${scripts_dir}/ | grep \.sh$`;
-do
-        if [ -f ${scripts_dir}/$scripts ] && [ -e ${scripts_dir}/$scripts ] && [ -x ${scripts_dir}/$scripts ] && [ -s ${scripts_dir}/$scripts ]; then
-            echo "sudo -E -u ${__SOCL_USER} /usr/bin/bash ${scripts_dir}/${scripts} ${TARG[@]}" 1>&2
-            sudo -E -u "${__SOCL_USER}" /usr/bin/bash ${scripts_dir}/${scripts} "${TARG[@]}" 1>&2
-            break;
-        fi
-done
-
-
+source /__InitDir/userScript.sh
 
 # Test用エントリーポイント
 #source /__InitDir/echoTest.sh
-#usr/bin/bash -i
+usr/bin/bash -i

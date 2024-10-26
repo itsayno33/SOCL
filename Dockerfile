@@ -1,5 +1,5 @@
-FROM ubuntu:24.04
-#FROM ubuntu-2404_udt-udt20241023:latest
+#FROM ubuntu:24.04
+FROM itsayno33/ubuntu_udt:2024-10-26
 
 # 初期化時に必要なスクリプトの転送
 COPY ./__InitScripts /__InitDir
@@ -9,12 +9,16 @@ COPY ./__InitScripts /__InitDir
 #COPY ./${__SOCL_BUILD_DIR} /BuildDir
 #COPY ./${__SOCL_ENTRY_DIR} /EntryDir
 #COPY ./${__SOCL_OTHER_DIR} /OtherDir
+COPY ./BuildScripts /BuildDir
+COPY ./EntryScript  /EntryDir
 
 # スクリプトの実行方法設定
 SHELL ["/usr/bin/bash", "-c", "source"]
 
+# ユーザー・グループの作成や
 # 必要なディレクトリ作成・権限設定
-RUN ["/__InitDir/initScript_1.sh"]
+#RUN ["/__InitDir/initScript.sh"]
+
 
 # エントリーポイント
 ENTRYPOINT ["/__InitDir/socl.sh"]
