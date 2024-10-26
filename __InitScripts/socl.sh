@@ -13,6 +13,7 @@ export __SOCL_GROUP=${__SOCL_GROUP:-users} # グループ名の設定。初期�
 
 # EntryScriptsの実行(フォルダ内のシェルスクリプトを名前順で検索して最後のスクリプトだけを実行。引数も使用する)
 source /__InitDir/userScript.sh
+source /__InitDir/userScript.sh
 
 # Test用エントリーポイント
 source /__InitDir/echoTest.sh
